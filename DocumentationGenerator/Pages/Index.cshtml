@@ -4,7 +4,16 @@
     ViewData["Title"] = "Home page";
 }
 
+<div class="text-center page__title">
+    <h1 class="display-4">K Documentation Generator</h1>
+</div>
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+	<form method="post" enctype="multipart/form-data">
+		<div class="form-group">
+			<label asp-for="UploadFile"></label>
+			<input asp-for="UploadFile" type="file" class="form-control-file"/>
+		</div>
+		<input type="submit" value="Upload"/>
+	</form>
 </div>
