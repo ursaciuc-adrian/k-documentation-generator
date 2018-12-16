@@ -1,3 +1,4 @@
+
 # K Documentation Generator
 
 This web app takes a *.k file and creates a HTML page based on the comments from the file.
@@ -83,9 +84,11 @@ Sections can also contatin some attributes:
 
 ## TODO
 
- - Section navigation
  - More K specific
  - Add some styling 
  - Copy code
-
+ - Generate a configuration scheme similar to 
+ ![config](https://screenshotscdn.firefoxusercontent.com/images/21c59f8f-f527-4923-8707-f95cbe4022b7.png)
+ - Generate rule scheme similar to
+ ![rule](https://screenshotscdn.firefoxusercontent.com/images/5ec6dc1b-c5f8-46bd-8d9c-77ca5a2816fe.png)
 
