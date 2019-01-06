@@ -1,71 +1,97 @@
 ﻿html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
 }
 
 .page__title {
-	margin-top: 50px;
-	margin-bottom: 80px;
+    margin-top: 50px;
+    margin-bottom: 80px;
 }
 
 .section {
-	margin: 30px 0;
+    margin: 30px 0;
 }
 
 .section__name {
-	padding: 10px 0;
-	text-transform: capitalize;
-	font-weight: 500;
-	font-size: 2rem;
+    padding: 10px 0;
+    text-transform: capitalize;
+    font-weight: 500;
+    font-size: 2rem;
 }
 
 .section__content {
-	background-color: #F5F5F5;
-	padding: 20px 20px;
+    background-color: #F5F5F5;
+    padding: 20px 20px;
 }
 
 .title {
-	margin: 40px 0 10px 0;
+    margin: 40px 0 10px 0;
 }
 
 .description {
-	font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
-.description__dke ewt{
-	border-top: red;
+.description__dke ewt {
+    border-top: red;
 }
 
 .documentation-container {
-	border-radius: 30px;
-	margin-top: 50px;
-	margin-bottom: 50px;
-	padding: 20px 40px;
-	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-	background-color: white;
+    border-radius: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 20px 40px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    background-color: white;
 }
 
 .background {
-	z-index: -10;
-	top: 0;
-	left: 0;
-	width:100%;
-	height:100%;
-	background-size:cover;
-	position: fixed;
-	background: url("../images/bg.jpeg") no-repeat center center fixed;
+    z-index: -10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    position: fixed;
+    background: url("../images/bg.jpeg") no-repeat center center fixed;
 }
 
 .layer {
-	z-index: -10;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	position: fixed;
-	background-color: white;
-	opacity: .9;
+    z-index: -10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: white;
+    opacity: .9;
+}
+
+.tag {
+    padding: 20px 40px;
+    border: 1px solid #666666;
+    margin-top: 30px;
+}
+
+.tag-name {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.tag-pair {
+    border: 1px solid #666666;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.tag-pair .key {
+    background-color: #F5F5F5;
+    padding: 10px 0;
+}
+
+.tag-pair .value {
+    padding: 5px 0;
 }

@@ -14,6 +14,8 @@ namespace DocumentationGenerator
 		{
 			var regex = new Regex(@"\/\/\/.*\:.*");
 
+            Content = Content.Replace("\r", "");
+
 			var result = Content.Split('\n', StringSplitOptions.RemoveEmptyEntries).Where(x => !regex.IsMatch(x));
 
 			Content = string.Join("\n", result);

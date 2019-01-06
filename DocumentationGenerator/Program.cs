@@ -10,15 +10,8 @@ namespace DocumentationGenerator
 			CreateWebHostBuilder(args).Build().Run();
 		}
 
-		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-			WebHost.CreateDefaultBuilder(args)
-				.UseStartup<Startup>()
-				.UseKestrel(
-					options =>
-					{
-						options.Listen(IPAddress.Any, 50003);
-						options.Limits.MaxRequestBodySize = null;
-					})
-				.UseDefaultServiceProvider(options => { options.ValidateScopes = false; });
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>();
 	}
 }

@@ -2,7 +2,7 @@
 @model DocumentationModel
 
 @{
-	ViewData["Title"] = "Documentation";
+    ViewData["Title"] = "Documentation";
 }
 
 <div class="background"><div class="layer"></div></div>
@@ -11,28 +11,33 @@
     <h1 class="title">
         @Model.Processor.Title
     </h1>
-	
-	<span class="description">
-		@Model.Processor.Description
-	</span>
 
-	
+    <span class="description">
+        @Model.Processor.Description
+    </span>
+
+
     @foreach (var sec in Model.Processor.Sections)
-     {
-         <div class="section">
-             <div class="section__name">
-                 <span>@sec.Name</span>
-             </div>
-	         <div class="section__description">
-		         <p>@sec.Description</p>
-	         </div>
-	         
-	         @if (sec.Content != "")
-	         {
-		         <div class="section__content">
-			         <pre><code>@sec.Content</code></pre>
-		         </div>
-	         }
-         </div>
-     }
+    {
+        <div class="section">
+            <div class="section__name">
+                <span>@sec.Name</span>
+            </div>
+            <div class="section__description">
+                <p>@sec.Description</p>
+            </div>
+
+            @if (sec.Content != "")
+            {
+                <div class="section__content">
+                    <pre><code>@sec.Content</code></pre>
+                </div>
+            }
+
+            @if (sec.Name == "configuration")
+            {
+                @await Html.PartialAsync("_TagPartial", @Model.Processor.Configuration)
+            }
+        </div>
+    }
 </div>

@@ -1,0 +1,28 @@
+﻿@model Tag
+
+<div class="tag">
+    <div class="tag-name">
+        @Model.Name
+    </div>
+
+    @foreach (var tag in @Model.Tags)
+    {
+        @await Html.PartialAsync("_TagPartial", tag)
+    }
+    <div class="row">
+        @foreach (var pair in @Model.Pairs)
+        {
+
+            <div class="col">
+                <div class="tag-pair">
+                    <div class="key">
+                        @pair.Key
+                    </div>
+                    <div class="value">
+                        @pair.Value
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

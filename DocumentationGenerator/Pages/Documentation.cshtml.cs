@@ -1,14 +1,22 @@
+using DocumentationGenerator.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DocumentationGenerator.Pages
 {
 	public class DocumentationModel : PageModel
 	{
-		public Processor Processor { get; set; }
-		
+        private readonly IProcessorService _processorService;
+
+        public Processor Processor;
+
+        public DocumentationModel(IProcessorService processorService)
+        {
+            _processorService = processorService;
+        }
+
 		public void OnGet(string fileContent)
 		{
-			Processor = new Processor(fileContent);
+            Processor = _processorService.ProcessData();
 		}
 	}
 }
