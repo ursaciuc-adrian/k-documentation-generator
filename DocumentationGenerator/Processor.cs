@@ -11,6 +11,7 @@ namespace DocumentationGenerator
         public string Description { get; set; }
         public IEnumerable<Section> Sections { get; set; }
         public Tag Configuration { get; set; }
+        public Tag Rules { get; set; }
 
         public void ProcessData(string content)
         {
@@ -19,6 +20,22 @@ namespace DocumentationGenerator
             Title = GetAttribute(content, "title");
             Description = GetAttribute(content, "description");
             Configuration = ProcessConfiguration();
+            Rules = ProcessRules();
+        }
+
+        public Tag ProcessRules()
+        {
+            var rulesSection = Sections.FirstOrDefault(x => x.Name.ToLower() == "rules");
+            if (rulesSection == null)
+            {
+                return null;
+            }
+
+            var tag = TagHelper.GetTagsInheritance(rulesSection.Content);
+            tag.Name = "Rules";
+            tag.ProcessValue = true;
+
+            return tag;
         }
 
         public Tag ProcessConfiguration()

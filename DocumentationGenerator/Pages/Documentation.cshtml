@@ -19,25 +19,31 @@
 
     @foreach (var sec in Model.Processor.Sections)
     {
-        <div class="section">
-            <div class="section__name">
-                <span>@sec.Name</span>
-            </div>
-            <div class="section__description">
-                <p>@sec.Description</p>
-            </div>
-
-            @if (sec.Content != "")
-            {
-                <div class="section__content">
-                    <pre><code>@sec.Content</code></pre>
-                </div>
-            }
-
-            @if (sec.Name == "configuration")
-            {
-                @await Html.PartialAsync("_TagPartial", @Model.Processor.Configuration)
-            }
+    <div class="section">
+        <div class="section__name">
+            <span>@sec.Name</span>
         </div>
+        <div class="section__description">
+            <p>@sec.Description</p>
+        </div>
+
+        @if (sec.Content != "")
+        {
+            <div class="section__content">
+                <pre><code>@sec.Content</code></pre>
+            </div>
+        }
+
+        @if (sec.Name == "configuration")
+        {
+            @await Html.PartialAsync("_TagPartial", @Model.Processor.Configuration)
+        }
+
+
+        @if (sec.Name == "rules")
+        {
+            @await Html.PartialAsync("_TagPartial", @Model.Processor.Rules)
+        }
+    </div>
     }
 </div>
