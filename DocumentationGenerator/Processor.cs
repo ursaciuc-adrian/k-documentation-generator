@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -10,8 +10,6 @@ namespace DocumentationGenerator
         public string Title { get; set; }
         public string Description { get; set; }
         public IEnumerable<Section> Sections { get; set; }
-        public Tag Configuration { get; set; }
-        public Tag Rules { get; set; }
 
         public void ProcessData(string content)
         {
@@ -19,34 +17,30 @@ namespace DocumentationGenerator
             Sections = GetSections(content);
             Title = GetAttribute(content, "title");
             Description = GetAttribute(content, "description");
-            Configuration = ProcessConfiguration();
-            Rules = ProcessRules();
         }
 
-        public Tag ProcessRules()
+        public Tag ProcessRule(Section section)
         {
-            var rulesSection = Sections.FirstOrDefault(x => x.Name.ToLower() == "rules");
-            if (rulesSection == null)
+            if (section == null)
             {
                 return null;
             }
 
-            var tag = TagHelper.GetTagsInheritance(rulesSection.Content);
+            var tag = TagHelper.GetTagsInheritance(section.Content);
             tag.Name = "Rules";
             tag.ProcessValue = true;
 
             return tag;
         }
 
-        public Tag ProcessConfiguration()
+        public Tag ProcessConfiguration(Section section)
         {
-            var configSection = Sections.FirstOrDefault(x => x.Name.ToLower() == "configuration");
-            if (configSection == null)
+            if (section == null)
             {
                 return null;
             }
 
-            var tag = TagHelper.GetTagsInheritance(configSection.Content);
+            var tag = TagHelper.GetTagsInheritance(section.Content);
             tag.Name = "T";
 
             return tag;
@@ -89,6 +83,11 @@ namespace DocumentationGenerator
                         };
 
                         section.Description = GetAttribute(section.Content, "description");
+                        var name = GetAttribute(section.Content, "name");
+                        if (!string.IsNullOrEmpty(name))
+                        {
+                            section.Name = name;
+                        }
                         section.RemoveAttributes();
 
                         yield return section;

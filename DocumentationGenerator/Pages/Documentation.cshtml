@@ -34,15 +34,15 @@
             </div>
         }
 
-        @if (sec.Name == "configuration")
+        @if (sec.Name.Contains("configuration"))
         {
-            @await Html.PartialAsync("_TagPartial", @Model.Processor.Configuration)
+            @await Html.PartialAsync("_TagPartial", @Model.Processor.ProcessConfiguration(sec))
         }
 
 
-        @if (sec.Name == "rules")
+        @if (sec.Name.Contains("rule"))
         {
-            @await Html.PartialAsync("_TagPartial", @Model.Processor.Rules)
+            @await Html.PartialAsync("_TagPartial", @Model.Processor.ProcessRule(sec))
         }
     </div>
     }
