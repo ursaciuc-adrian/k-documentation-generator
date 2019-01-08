@@ -27,7 +27,7 @@ namespace DocumentationGenerator
             }
 
             var tag = TagHelper.GetTagsInheritance(section.Content);
-            tag.Name = "Rules";
+            tag.Name = section.Name;
             tag.ProcessValue = true;
 
             return tag;

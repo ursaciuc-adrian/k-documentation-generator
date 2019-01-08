@@ -94,3 +94,13 @@ body {
 .tag-pair .value {
     padding: 5px 0;
 }
+
+.home-content {
+    background-color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    padding: 60px 40px;
+}
+
+.home-content .btn-primary {
+    margin-top: 40px;
+}

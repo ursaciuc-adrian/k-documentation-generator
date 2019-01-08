@@ -4,16 +4,35 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center page__title">
-    <h1 class="display-4">K Documentation Generator</h1>
+<div class="background"><div class="layer"></div></div>
+
+<div class="container">
+    <div class="text-center page__title">
+        <h1 class="display-4">K Documentation Generator</h1>
+    </div>
+    
+    <div class="home-content">
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <div class="custom-file">
+                    <input asp-for="UploadFile" type="file" class="custom-file-input">
+                    <label class="custom-file-label" asp-for="UploadFile"></label>
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Generate</button>
+            </div>
+        </form>
+    </div>
+    
 </div>
 
-<div class="text-center">
-	<form method="post" enctype="multipart/form-data">
-		<div class="form-group">
-			<label asp-for="UploadFile"></label>
-			<input asp-for="UploadFile" type="file" class="form-control-file"/>
-		</div>
-		<button type="submit">Upload</button>
-	</form>
-</div>
+@section Scripts
+{
+    <script>
+        $('.custom-file-input').on('change',function(){
+            var fileName = $(this).val();
+            $(this).next('.custom-file-label').html(fileName);
+        })
+    </script>
+}
