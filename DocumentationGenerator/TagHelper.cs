@@ -12,18 +12,26 @@ namespace DocumentationGenerator
 
             if (commented)
             {
-                regex = new Regex($@"(?<=\/\/\<{tag}.*\>)((.|\n)*)(?=\/\/\<\/{tag}\>)");
+                regex = new Regex($@"\/\/(\<{tag}[ a-zA-Z0-9\=\""]*\>)(?<content>(.|\n)*?)(\/\/\<\/{tag}\>)");
             }
             else
             {
-                regex = new Regex($@"(?<=\<{tag}.*\>)((.|\n)*)(?=\<\/{tag}\>)");
+                regex = new Regex($@"(\<{tag}[ a-zA-Z0-9\=\""]*\>)(?<content>(.|\n)*?)(\<\/{tag}\>)");
             }
 
             var match = regex.Match(content);
 
             if (match.Success)
             {
-                return match.Groups[1].Value.Trim();
+                return match.Groups["content"].Value.Trim();
+            }
+
+            var sectionRegex = new Regex(@"\((.|\n)*\.(?<name>[a-zA-Z]*)(.|\n)*\=\>(?<content>(.|\n)*)\)");
+            match = sectionRegex.Match(content);
+
+            if (match.Success)
+            {
+                return match.Groups["content"].Value.Trim();
             }
 
             return null;
@@ -36,20 +44,43 @@ namespace DocumentationGenerator
 
             if (string.IsNullOrEmpty(content))
             {
-                yield break;
+                return new HashSet<string>();
             }
 
-            var tagsRegex = new Regex(@"<([^\/]+)(\ .*)?>((.|\n)*)<\/\1>");
+            var tags = new HashSet<string>();
+
+            var sectionRegex = new Regex(@"\((\ |\n)*\.(?<name>[a-zA-Z]*)(.|\n)*\=\>(?<content>(\ |\n)*\<([^\/]+)(\ .*)?\>((.|\n)*?)\<\/\6\>)\)");
+            var sectionMatches = sectionRegex.Matches(content).ToList();
+
+            foreach (var match in sectionMatches)
+            {
+                tags.Add(match.Groups["name"].Value);
+            }
+            content = Regex.Replace(content, sectionRegex.ToString(), "");
+
+
+            var tagsRegex = new Regex(@"<([^\/]+)(\ .*)?>((.|\n)*?)<\/\1>");
 
             foreach (var match in tagsRegex.Matches(content).ToList())
             {
-                yield return match.Groups[1].Value;
+                tags.Add(match.Groups[1].Value);
             }
+
+            return tags;
         }
 
-        public static Tag GetTagsInheritance(string content)
+        public static bool IsSection(string content, string tag)
         {
-            var tagInheritance = new Tag();
+            return new Regex($@"\((.|\n)*\.{tag}(.|\n)*\=\>(?<content>(.|\n)*)\)").IsMatch(content);
+        }
+
+        public static Tag GetTagsInheritance(string content, bool isRule = false)
+        {
+            var tagInheritance = new Tag
+            {
+                Content = content,
+                ProcessValue = isRule
+            };
 
             var tags = GetTags(content).ToList();
 
@@ -58,8 +89,9 @@ namespace DocumentationGenerator
                 var tagContent = GetContentBetweenTags(content, tag, false);
                 if (GetTags(tagContent).Count() != 0)
                 {
-                    var newTag = GetTagsInheritance(tagContent);
+                    var newTag = GetTagsInheritance(tagContent, isRule);
                     newTag.Name = tag;
+                    newTag.IsSection = IsSection(content, tag);
 
                     tagInheritance.Tags.Add(newTag);
                 }
@@ -67,16 +99,9 @@ namespace DocumentationGenerator
                 {
                     tagInheritance.Pairs.Add(tag, tagContent);
                 }
-
-                content = RemoveTag(content, tag);
             }
 
             return tagInheritance;
-        }
-
-        private static string RemoveTag(string content, string tag)
-        {
-            return Regex.Replace(content, $@"(?<=\<{tag}.*\>)((.|\n)*)(?=\<\/{tag}\>)", "");
         }
     }
 }

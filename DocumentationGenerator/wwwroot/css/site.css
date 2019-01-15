@@ -86,6 +86,14 @@ body {
     margin-top: 30px;
 }
 
+.start-dots {
+    border-left: 8px solid #666666;
+}
+
+.end-dots {
+    border-right: 8px solid #666666;
+}
+
 .tag-pair .key {
     background-color: #F5F5F5;
     padding: 10px 0;
@@ -103,4 +111,15 @@ body {
 
 .home-content .btn-primary {
     margin-top: 40px;
+}
+
+.k-section {
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.k-section > .tag-name {
+    text-align: center;
+    border-bottom: 1px solid #666666;
 }

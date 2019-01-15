@@ -1,6 +1,6 @@
 ﻿@model Tag
 
-<div class="tag">
+<div class="tag  @(Model.IsSection ? "k-section" : "") @(Model.HasStartDots(Model.Content) ? "start-dots" : "") @(Model.HasEndDots(Model.Content) ? "end-dots" : "")">
     <div class="tag-name">
         @Model.Name
     </div>
@@ -14,7 +14,7 @@
         {
 
             <div class="col">
-                <div class="tag-pair">
+                <div class="tag-pair @(@Model.HasStartDots(pair.Value) ? "start-dots" : "") @(@Model.HasEndDots(pair.Value) ? "end-dots" : "")" >
                     <div class="key">
                         @pair.Key
                     </div>
