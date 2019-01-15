@@ -49,7 +49,7 @@ namespace DocumentationGenerator
 
             var tags = new HashSet<string>();
 
-            var sectionRegex = new Regex(@"\((\ |\n)*\.(?<name>[a-zA-Z]*)(.|\n)*\=\>(?<content>(\ |\n)*\<([^\/]+)(\ .*)?\>((.|\n)*?)\<\/\6\>)\)");
+            var sectionRegex = new Regex(@"\((\ |\n)*\.(?<name>[a-zA-Z]*)(.|\n)*\=\>(?<content>(\ |\n)*\<([^\/]+)(\ .*)?\>((.|\n)*?)\<\/[a-zA-Z]*\>)\)");
             var sectionMatches = sectionRegex.Matches(content).ToList();
 
             foreach (var match in sectionMatches)
